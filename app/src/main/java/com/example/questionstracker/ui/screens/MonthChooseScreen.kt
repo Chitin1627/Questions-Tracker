@@ -1,6 +1,5 @@
 package com.example.questionstracker.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
@@ -32,7 +31,7 @@ fun DatePickerButton(
 
     if(showDatePicker) {
         MyDatePickerDialog(
-            onDateSelected = {onDateSelected(date)},
+            onDateSelected = onDateSelected,
             onDismiss = {onDismiss(false)}
         )
     }
@@ -62,7 +61,6 @@ fun MyDatePickerDialog(
             Button(
                 onClick = {
                     onDateSelected(selectedDate)
-                    Log.d("Hello", selectedDate)
                     onDismiss()
                 }
             ) {
