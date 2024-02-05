@@ -65,6 +65,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation("androidx.compose.material3:material3:1.2.0-alpha02")
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
     ksp("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
     testImplementation("junit:junit:4.13.2")

@@ -32,21 +32,48 @@ class QuestionTrackerViewModel(
             )
         }
     }
-//    fun getQueryByDateOutput(output: QuestionsSolved) {
-//        _uiState.update { currentState ->
-//            currentState.copy(
-//                questionsSolved = output
-//            )
-//        }
-//    }
 
-    fun getQuestionsSolved(date: String) : QuestionsSolved{
-        return dao.getQuestionsSolvedByDate(date)
+    fun setNoOfQuestions(number: Int) {
+        _uiState.update {currentState ->
+            currentState.copy(
+                noOfQuestions = number
+            )
+        }
     }
 
-    fun upsertQuestionsSolved(data: QuestionsSolved) {
-        viewModelScope.launch {
-            dao.upsertQuestionsSolved(data)
+    fun getQuestionsSolved(date: String){
+        var questionsSolved = dao.getQuestionsSolvedByDate(date)
+        if(questionsSolved==null) {
+            questionsSolved = QuestionsSolved(
+                noOfQuestions = 0,
+                date = date
+            )
         }
+        _uiState.update {currentState ->
+            currentState.copy (
+                questionsSolved = questionsSolved
+            )
+        }
+    }
+
+    fun setQuestionsSolved(date: String, noOfQuestions: Int) {
+        val tempObj = QuestionsSolved(date = date, noOfQuestions = noOfQuestions)
+        _uiState.update {currentState ->
+            currentState.copy (
+                questionsSolved = tempObj
+            )
+        }
+    }
+
+    fun setInsertingData(isInsertingData: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy (
+                isInsertingData = isInsertingData
+            )
+        }
+    }
+
+    suspend fun upsertQuestionsSolved(data: QuestionsSolved) {
+        dao.upsertQuestionsSolved(data)
     }
 }
