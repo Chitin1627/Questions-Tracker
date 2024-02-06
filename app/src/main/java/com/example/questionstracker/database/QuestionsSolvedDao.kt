@@ -11,8 +11,8 @@ interface QuestionsSolvedDao {
     @Upsert
     suspend fun upsertQuestionsSolved(questionsSolved: QuestionsSolved)
 
-    @Delete
-    suspend fun deleteQuestionsSolved(questionsSolved: QuestionsSolved)
+    @Query("DELETE FROM QuestionsSolved")
+    suspend fun deleteAllQuestionsSolved()
 
     @Query("SELECT * FROM QuestionsSolved WHERE date = :date")
     fun getQuestionsSolvedByDate(date: String): QuestionsSolved
