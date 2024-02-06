@@ -43,7 +43,7 @@ fun QuestionsTrackerApp(
     val currentScreen = AppScreen.valueOf(
         backStackEntry?.destination?.route ?: AppScreen.DateChoose.name
     )
-
+    viewModel.getQuestionsSolvedLast30Days()
     Scaffold(
         topBar = {
             QuestionsTrackerAppBar(
@@ -62,6 +62,7 @@ fun QuestionsTrackerApp(
                 DateChooseScreen(
                     date = uiState.date,
                     showDatePicker = uiState.showDatePicker,
+                    noOfQuestionsLast30Days = uiState.noOfQuestionsLast30Days,
                     onShowButtonClicked = {
                         viewModel.setDate(it)
                         viewModel.getQuestionsSolved(it)

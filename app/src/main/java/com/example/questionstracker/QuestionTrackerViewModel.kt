@@ -56,6 +56,15 @@ class QuestionTrackerViewModel(
         }
     }
 
+    fun getQuestionsSolvedLast30Days() {
+        var num = dao.getQuestionsSolvedLast30Days()
+        _uiState.update { currentState ->
+            currentState.copy(
+                noOfQuestionsLast30Days = num
+            )
+        }
+    }
+
     fun setQuestionsSolved(date: String, noOfQuestions: Int) {
         val tempObj = QuestionsSolved(date = date, noOfQuestions = noOfQuestions)
         _uiState.update {currentState ->

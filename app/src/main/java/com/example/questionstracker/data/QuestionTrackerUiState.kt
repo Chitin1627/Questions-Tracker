@@ -8,5 +8,6 @@ data class QuestionTrackerUiState(
     val showDatePicker: Boolean = false,
     val noOfQuestions: Int = 0,
     val isInsertingData: Boolean = false,
+    val noOfQuestionsLast30Days: Int = 0,
     val questionsSolved: QuestionsSolved = QuestionsSolved()
 )

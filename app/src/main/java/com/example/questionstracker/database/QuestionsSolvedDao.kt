@@ -16,4 +16,7 @@ interface QuestionsSolvedDao {
 
     @Query("SELECT * FROM QuestionsSolved WHERE date = :date")
     fun getQuestionsSolvedByDate(date: String): QuestionsSolved
+
+    @Query("SELECT SUM(noOfQuestions) FROM QuestionsSolved WHERE date > date('now','-30 days')")
+    fun getQuestionsSolvedLast30Days(): Int
 }
