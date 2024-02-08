@@ -35,8 +35,26 @@ fun QuestionsSolvedCard(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = questionObj.noOfQuestions.toString(),
-                fontSize = 72.sp,
+                text = "Leetcode: ${questionObj.noOfLeetcode}",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                textAlign = TextAlign.Center,
+            )
+            Text(
+                text = "Codeforces: ${questionObj.noOfCodeforces}",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                textAlign = TextAlign.Center,
+            )
+            Text(
+                text = "Codechef: ${questionObj.noOfCodechef}",
+                fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = modifier
                     .fillMaxWidth()
@@ -60,6 +78,6 @@ fun QuestionsSolvedCard(
 @Composable
 @Preview(showSystemUi = true)
 fun CardPreview() {
-    var tempObj = QuestionsSolved(date = "02/02/2024", noOfQuestions = 7)
+    var tempObj = QuestionsSolved(date = "02/02/2024", noOfLeetcode = 7, noOfCodeforces = 3, noOfCodechef = 2)
     QuestionsSolvedCard(questionObj = tempObj)
 }

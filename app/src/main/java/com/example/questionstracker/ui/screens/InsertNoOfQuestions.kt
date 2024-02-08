@@ -1,10 +1,8 @@
 package com.example.questionstracker.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,16 +27,18 @@ import com.example.questionstracker.R
 @Composable
 fun InsertNoOfQuestions(
     date: String,
-    onClick: (Int) -> Unit,
+    onClick: (Int, Int, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var textState by remember { mutableStateOf("") }
+    var noOfLeetcode by remember { mutableStateOf("") }
+    var noOfCodeforces by remember { mutableStateOf("") }
+    var noOfCodechef by remember { mutableStateOf("") }
     var isSubmitEnabled by remember { mutableStateOf(false) }
 
-    isSubmitEnabled = textState!=""
+    isSubmitEnabled = (noOfCodechef!="") && (noOfLeetcode!="") && (noOfCodechef!="")
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -53,10 +53,10 @@ fun InsertNoOfQuestions(
         )
         Spacer(modifier = Modifier.padding(8.dp))
         OutlinedTextField(
-            value = textState,
-            label = { stringResource(R.string.no_of_questions) },
+            value = noOfLeetcode,
+            label = { Text(text = stringResource(R.string.no_of_leetcode_questions)) },
             onValueChange = {
-                textState = it
+                noOfLeetcode = it
             },
             shape = RoundedCornerShape(16.dp),
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -66,9 +66,40 @@ fun InsertNoOfQuestions(
                 .align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.padding(8.dp))
+
+        OutlinedTextField(
+            value = noOfCodeforces,
+            label = { Text(text = stringResource(R.string.no_of_codeforces_questions)) },
+            onValueChange = {
+                noOfCodeforces = it
+            },
+            shape = RoundedCornerShape(16.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        OutlinedTextField(
+            value = noOfCodechef,
+            label = { Text(text = stringResource(R.string.no_of_codechef_questions)) },
+            onValueChange = {
+                noOfCodechef = it
+            },
+            shape = RoundedCornerShape(16.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
+
         Button(
             onClick = {
-                onClick(textState.toInt())
+                onClick(noOfLeetcode.toInt(), noOfCodeforces.toInt(), noOfCodechef.toInt())
             },
             enabled = isSubmitEnabled
         )
@@ -80,6 +111,6 @@ fun InsertNoOfQuestions(
 
 @Preview(showSystemUi = true)
 @Composable
-fun previewScreen() {
+fun PreviewScreen() {
     //insertNoOfQuestions(date = "22/02/2024")
 }

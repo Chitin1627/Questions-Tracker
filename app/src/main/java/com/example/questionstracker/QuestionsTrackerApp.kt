@@ -85,9 +85,12 @@ fun QuestionsTrackerApp(
                 val coroutineScope = rememberCoroutineScope()
                 InsertNoOfQuestions(
                     date = uiState.date,
-                    onClick = {
-                        viewModel.setNoOfQuestions(it)
-                        viewModel.setQuestionsSolved(date = uiState.date, noOfQuestions = it)
+                    onClick = {noOfLeetcode, noOfCodeforces, noOfCodechef ->
+                        viewModel.setQuestionsSolved(date = uiState.date,
+                            noOfLeetcode = noOfLeetcode,
+                            noOfCodeforces = noOfCodeforces,
+                            noOfCodechef = noOfCodechef
+                        )
                         viewModel.setInsertingData(true)
                     }
                 )

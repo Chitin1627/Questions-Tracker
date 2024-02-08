@@ -10,4 +10,7 @@
     <string name="done">Done</string>
     <string name="question_tracker">Question Tracker</string>
     <string name="insert_no_of_questions">Insert No of Questions</string>
+    <string name="no_of_leetcode_questions">No of Leetcode Questions</string>
+    <string name="no_of_codeforces_questions">No of Codeforces Questions</string>
+    <string name="no_of_codechef_questions">No of Codechef Questions</string>
 </resources>
