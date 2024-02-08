@@ -129,7 +129,9 @@ fun DateChooseScreen(
                 else if(selectedValue==2) {
                     MyDatePickerDialog(
                         onDateSelected = onShowButtonClicked,
-                        onDismiss = {onDismiss(false)}
+                        onDismiss = {
+                            onDismiss(false)
+                        }
                     )
                 }
             }
