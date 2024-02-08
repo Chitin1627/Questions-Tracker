@@ -1,6 +1,7 @@
 package com.example.questionstracker
 
 import android.annotation.SuppressLint
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -17,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,10 +30,10 @@ import com.example.questionstracker.ui.screens.QuestionsSolvedCard
 import kotlinx.coroutines.launch
 
 
-enum class AppScreen(val title: String) {
-    DateChoose(title = "Question Tracker"),
-    ShowNoOfQuestions(title = "No of Questions"),
-    InsertNoOfQuestions(title = "Insert No of Questions")
+enum class AppScreen(@StringRes val title: Int) {
+    DateChoose(title = R.string.question_tracker),
+    ShowNoOfQuestions(title = R.string.no_of_questions),
+    InsertNoOfQuestions(title = R.string.insert_no_of_questions)
 }
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
@@ -110,7 +112,7 @@ fun QuestionsTrackerAppBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        title = { Text(text = currentScreen.title) },
+        title = { Text(text = stringResource(id = currentScreen.title)) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
@@ -120,7 +122,7 @@ fun QuestionsTrackerAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
+                        contentDescription = stringResource(R.string.back)
                     )
                 }
             }

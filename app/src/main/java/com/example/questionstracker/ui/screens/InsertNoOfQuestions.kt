@@ -19,10 +19,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.questionstracker.R
 
 @Composable
 fun InsertNoOfQuestions(
@@ -31,6 +33,10 @@ fun InsertNoOfQuestions(
     modifier: Modifier = Modifier
 ) {
     var textState by remember { mutableStateOf("") }
+    var isSubmitEnabled by remember { mutableStateOf(false) }
+
+    isSubmitEnabled = textState!=""
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,7 +54,7 @@ fun InsertNoOfQuestions(
         Spacer(modifier = Modifier.padding(8.dp))
         OutlinedTextField(
             value = textState,
-            label = {"No of Questions"},
+            label = { stringResource(R.string.no_of_questions) },
             onValueChange = {
                 textState = it
             },
@@ -62,12 +68,12 @@ fun InsertNoOfQuestions(
         Spacer(modifier = Modifier.padding(8.dp))
         Button(
             onClick = {
-                Log.d("HELLO", textState)
                 onClick(textState.toInt())
-            }
+            },
+            enabled = isSubmitEnabled
         )
         {
-            Text(text = "Done")
+            Text(text = stringResource(R.string.done))
         }
     }
 }

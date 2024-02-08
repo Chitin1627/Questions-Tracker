@@ -31,9 +31,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.questionstracker.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -80,10 +82,10 @@ fun DateChooseScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Create,
-                            contentDescription = "Insert"
+                            contentDescription = stringResource(R.string.insert)
                         )
                         Text(
-                            text = "Insert",
+                            text = stringResource(R.string.insert),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold
                         )
@@ -107,9 +109,9 @@ fun DateChooseScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Search,
-                            contentDescription = "Show"
+                            contentDescription = stringResource(R.string.show)
                         )
-                        Text(text = "Show",
+                        Text(text = stringResource(id = R.string.show),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold
                         )
@@ -149,7 +151,7 @@ fun DateChooseScreen(
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
                 Text(
-                    text = "Questions in Last 30 Days",
+                    text = stringResource(R.string.questions_in_last_30_days),
                     style = MaterialTheme.typography.bodyLarge
                     )
             }
@@ -177,6 +179,10 @@ fun MyDatePickerDialog(
         date
     } ?: ""
 
+    var okButtonEnabled by remember { mutableStateOf(false) }
+    if(selectedDate!="") {
+        okButtonEnabled = true
+    }
     DatePickerDialog(
         onDismissRequest = { onDismiss() },
         confirmButton = {
@@ -184,16 +190,17 @@ fun MyDatePickerDialog(
                 onClick = {
                     onDateSelected(selectedDate)
                     onDismiss()
-                }
+                },
+                enabled = okButtonEnabled
             ) {
-                Text(text = "OK")
+                Text(text = stringResource(R.string.ok))
             }
         },
         dismissButton = {
             Button(onClick = {
                 onDismiss()
             }) {
-                Text(text = "Cancel")
+                Text(text = stringResource(R.string.cancel))
             }
         }
         ) {

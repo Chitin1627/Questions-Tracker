@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
             QuestionsSolvedDatabase::class.java,
             "questionssolved.db"
         )
-            .createFromAsset("database/QuestionsSolved.db")
+            //.createFromAsset("database/QuestionsSolved.db")
             .allowMainThreadQueries()
             .build()
     }
