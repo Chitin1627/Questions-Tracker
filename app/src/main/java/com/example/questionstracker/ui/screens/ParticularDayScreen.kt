@@ -83,16 +83,12 @@ fun NoOfQuestionsCard(
     @DrawableRes image: Int,
     modifier: Modifier = Modifier
 ) {
-    var expanded by remember { mutableStateOf (false) }
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable(
-                onClick = { expanded = !expanded }
-            )
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Column {
