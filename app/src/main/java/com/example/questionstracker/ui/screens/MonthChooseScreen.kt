@@ -147,16 +147,6 @@ fun DateChooseScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-//                Text(
-//                    text = noOfQuestionsLast30Days.toString(),
-//                    fontWeight = FontWeight.Bold,
-//                    style = MaterialTheme.typography.displayLarge
-//                )
-//                Spacer(modifier = Modifier.padding(8.dp))
-//                Text(
-//                    text = stringResource(R.string.questions_in_last_30_days),
-//                    style = MaterialTheme.typography.bodyLarge
-//                    )
                 PieChart(
                     data = totalQuestionsMap
                 )
