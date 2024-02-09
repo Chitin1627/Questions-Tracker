@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questionstracker.R
+import com.example.questionstracker.ui.template.PieChart
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -45,7 +46,7 @@ import java.util.Locale
 fun DateChooseScreen(
     date: String,
     showDatePicker: Boolean,
-    noOfQuestionsLast30Days: Int,
+    totalQuestionsMap: Map<String, Int>,
     onShowButtonClicked: (String) -> Unit,
     onInsertButtonClicked: (String) -> Unit,
     onDismiss: (Boolean) -> Unit,
@@ -146,16 +147,19 @@ fun DateChooseScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = noOfQuestionsLast30Days.toString(),
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.displayLarge
+//                Text(
+//                    text = noOfQuestionsLast30Days.toString(),
+//                    fontWeight = FontWeight.Bold,
+//                    style = MaterialTheme.typography.displayLarge
+//                )
+//                Spacer(modifier = Modifier.padding(8.dp))
+//                Text(
+//                    text = stringResource(R.string.questions_in_last_30_days),
+//                    style = MaterialTheme.typography.bodyLarge
+//                    )
+                PieChart(
+                    data = totalQuestionsMap
                 )
-                Spacer(modifier = Modifier.padding(8.dp))
-                Text(
-                    text = stringResource(R.string.questions_in_last_30_days),
-                    style = MaterialTheme.typography.bodyLarge
-                    )
             }
         }
 
@@ -213,12 +217,12 @@ fun MyDatePickerDialog(
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewDateButton() {
-    DateChooseScreen(
-        date = "24/07/2024",
-        showDatePicker = true,
-        noOfQuestionsLast30Days = 43,
-        onShowButtonClicked = {},
-        onInsertButtonClicked = {},
-        onDismiss = {}
-    )
+//    DateChooseScreen(
+//        date = "24/07/2024",
+//        showDatePicker = true,
+//        noOfQuestionsLast30Days = 43,
+//        onShowButtonClicked = {},
+//        onInsertButtonClicked = {},
+//        onDismiss = {}
+//    )
 }

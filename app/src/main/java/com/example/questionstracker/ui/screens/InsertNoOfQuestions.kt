@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,8 +44,9 @@ fun InsertNoOfQuestions(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        val newDate = "${date.subSequence(8, 10)}-${date.subSequence(5,7)}-${date.subSequence(0,4)}"
         OutlinedTextField(
-            value = "Date ($date)",
+            value = newDate,
             onValueChange = {},
             readOnly = true,
             enabled = false,
@@ -54,11 +57,16 @@ fun InsertNoOfQuestions(
         Spacer(modifier = Modifier.padding(8.dp))
         OutlinedTextField(
             value = noOfLeetcode,
-            label = { Text(text = stringResource(R.string.no_of_leetcode_questions)) },
+            label = { Text(text = stringResource(R.string.leetcode)) },
             onValueChange = {
                 noOfLeetcode = it
             },
             shape = RoundedCornerShape(16.dp),
+            leadingIcon = {
+                Icon(painter = painterResource(id = R.drawable.leetcode_icon),
+                    contentDescription = stringResource(id = R.string.no_of_leetcode_questions)
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done),
@@ -69,11 +77,16 @@ fun InsertNoOfQuestions(
 
         OutlinedTextField(
             value = noOfCodeforces,
-            label = { Text(text = stringResource(R.string.no_of_codeforces_questions)) },
+            label = { Text(text = stringResource(R.string.codeforces)) },
             onValueChange = {
                 noOfCodeforces = it
             },
             shape = RoundedCornerShape(16.dp),
+            leadingIcon = {
+                Icon(painter = painterResource(id = R.drawable.codeforces_icon),
+                    contentDescription = stringResource(id = R.string.no_of_codeforces_questions)
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done),
@@ -84,11 +97,16 @@ fun InsertNoOfQuestions(
 
         OutlinedTextField(
             value = noOfCodechef,
-            label = { Text(text = stringResource(R.string.no_of_codechef_questions)) },
+            label = { Text(text = stringResource(R.string.codechef)) },
             onValueChange = {
                 noOfCodechef = it
             },
             shape = RoundedCornerShape(16.dp),
+            leadingIcon = {
+                Icon(painter = painterResource(id = R.drawable.codechef_icon),
+                    contentDescription = stringResource(id = R.string.no_of_codechef_questions)
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done),

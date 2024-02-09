@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 enum class AppScreen(@StringRes val title: Int) {
     DateChoose(title = R.string.question_tracker),
     ShowNoOfQuestions(title = R.string.no_of_questions),
-    InsertNoOfQuestions(title = R.string.insert_no_of_questions)
+    InsertNoOfQuestions(title = R.string.questions)
 }
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
@@ -45,7 +45,7 @@ fun QuestionsTrackerApp(
     val currentScreen = AppScreen.valueOf(
         backStackEntry?.destination?.route ?: AppScreen.DateChoose.name
     )
-    viewModel.getQuestionsSolvedLast30Days()
+    viewModel.getTotalQuestions()
     Scaffold(
         topBar = {
             QuestionsTrackerAppBar(
@@ -64,7 +64,7 @@ fun QuestionsTrackerApp(
                 DateChooseScreen(
                     date = uiState.date,
                     showDatePicker = uiState.showDatePicker,
-                    noOfQuestionsLast30Days = uiState.noOfQuestionsLast30Days,
+                    totalQuestionsMap = uiState.totalQuestionsMap,
                     onShowButtonClicked = {
                         viewModel.setDate(it)
                         viewModel.getQuestionsSolved(it)

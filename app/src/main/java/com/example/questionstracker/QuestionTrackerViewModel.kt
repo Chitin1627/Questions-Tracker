@@ -62,6 +62,21 @@ class QuestionTrackerViewModel(
         }
     }
 
+    fun getTotalQuestions() {
+        val totalLeetcodeQuestions = dao.getLeetcodeTotalQuestions()
+        val totalCodeforcesQuestions = dao.getCodeforcesTotalQuestions()
+        val totalCodechefQuestions = dao.getCodechefTotalQuestions()
+        val totalQuestionsMap: Map<String, Int> =  mapOf(
+            Pair("Leetcode", totalLeetcodeQuestions),
+            Pair("Codeforces", totalCodeforcesQuestions),
+            Pair("CodeChef", totalCodechefQuestions)
+        )
+        _uiState.update { currentState ->
+            currentState.copy(
+                totalQuestionsMap = totalQuestionsMap
+            )
+        }
+    }
     fun setQuestionsSolved(
         date: String,
         noOfLeetcode: Int,
