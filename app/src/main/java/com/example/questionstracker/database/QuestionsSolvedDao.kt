@@ -17,6 +17,17 @@ interface QuestionsSolvedDao {
     @Query("SELECT * FROM QuestionsSolved WHERE date = :date")
     fun getQuestionsSolvedByDate(date: String): QuestionsSolved
 
-    @Query("SELECT SUM(noOfQuestions) FROM QuestionsSolved WHERE date > date('now','-30 days')")
+    @Query("SELECT SUM(noOfLeetcode)+SUM(noOfCodeChef)+SUM(noOfCodeforces) FROM QuestionsSolved WHERE date > date('now','-30 days')")
     fun getQuestionsSolvedLast30Days(): Int
+
+    @Query("SELECT SUM(noOfLeetcode) FROM QuestionsSolved")
+    fun getLeetcodeTotalQuestions(): Int
+
+    @Query("SELECT SUM(noOfCodeforces) FROM QuestionsSolved")
+    fun getCodeforcesTotalQuestions(): Int
+
+    @Query("SELECT SUM(noOfCodechef) FROM QuestionsSolved")
+    fun getCodechefTotalQuestions(): Int
+
+
 }

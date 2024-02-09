@@ -7,9 +7,8 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [QuestionsSolved::class],
-    version = 1
+    version = 2
 )
 abstract class QuestionsSolvedDatabase: RoomDatabase() {
     abstract val dao: QuestionsSolvedDao
-
 }

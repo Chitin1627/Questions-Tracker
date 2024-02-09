@@ -44,10 +44,7 @@ class QuestionTrackerViewModel(
     fun getQuestionsSolved(date: String){
         var questionsSolved = dao.getQuestionsSolvedByDate(date)
         if(questionsSolved==null) {
-            questionsSolved = QuestionsSolved(
-                noOfQuestions = 0,
-                date = date
-            )
+            questionsSolved = QuestionsSolved(date = date)
         }
         _uiState.update {currentState ->
             currentState.copy (
@@ -65,8 +62,33 @@ class QuestionTrackerViewModel(
         }
     }
 
-    fun setQuestionsSolved(date: String, noOfQuestions: Int) {
-        val tempObj = QuestionsSolved(date = date, noOfQuestions = noOfQuestions)
+    fun getTotalQuestions() {
+        val totalLeetcodeQuestions = dao.getLeetcodeTotalQuestions()
+        val totalCodeforcesQuestions = dao.getCodeforcesTotalQuestions()
+        val totalCodechefQuestions = dao.getCodechefTotalQuestions()
+        val totalQuestionsMap: Map<String, Int> =  mapOf(
+            Pair("Leetcode", totalLeetcodeQuestions),
+            Pair("Codeforces", totalCodeforcesQuestions),
+            Pair("CodeChef", totalCodechefQuestions)
+        )
+        _uiState.update { currentState ->
+            currentState.copy(
+                totalQuestionsMap = totalQuestionsMap
+            )
+        }
+    }
+    fun setQuestionsSolved(
+        date: String,
+        noOfLeetcode: Int,
+        noOfCodeforces: Int,
+        noOfCodechef: Int
+    ) {
+        val tempObj = QuestionsSolved(
+            date = date,
+            noOfLeetcode = noOfLeetcode,
+            noOfCodechef = noOfCodechef,
+            noOfCodeforces = noOfCodeforces
+        )
         _uiState.update {currentState ->
             currentState.copy (
                 questionsSolved = tempObj

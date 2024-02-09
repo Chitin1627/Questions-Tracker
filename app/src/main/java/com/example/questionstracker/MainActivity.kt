@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
             "questionssolved.db"
         )
             //.createFromAsset("database/QuestionsSolved.db")
+            .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
     }
