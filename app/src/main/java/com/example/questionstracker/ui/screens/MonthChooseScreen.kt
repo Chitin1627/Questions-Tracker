@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questionstracker.R
@@ -60,21 +61,54 @@ fun DateChooseScreen(
         mutableStateOf(0)
     }
     Column(modifier = Modifier.fillMaxSize()) {
+        Card(modifier = Modifier
+            .fillMaxSize()
+            .weight(3f)
+            .padding(16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            onClick = onClick
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize().padding(8.dp).weight(1f),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                PieChart(
+                    data = totalQuestionsMap
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxHeight().weight(1f),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Show more",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.fillMaxSize(),
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                }
+
+            }
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f)
+                .padding(bottom = 8.dp)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 16.dp),
+                    .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Card(
                     onClick = {
-                    selectedValue = 1
-                    onDismiss(true)
+                        selectedValue = 1
+                        onDismiss(true)
                     },
                     elevation = CardDefaults.cardElevation(8.dp),
                     modifier = Modifier
@@ -142,31 +176,6 @@ fun DateChooseScreen(
                         }
                     )
                 }
-            }
-        }
-        Card(modifier = Modifier
-            .fillMaxSize()
-            .weight(3f)
-            .padding(16.dp),
-            elevation = CardDefaults.cardElevation(8.dp),
-            onClick = onClick
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize().padding(8.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                PieChart(
-                    data = totalQuestionsMap
-                )
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "Show more",
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-                }
-
             }
         }
 
