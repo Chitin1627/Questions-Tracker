@@ -197,7 +197,6 @@ fun MyDatePickerDialog(
             return utcTimeMillis <= System.currentTimeMillis()
         }
     })
-
     val selectedDate = datePickerState.selectedDateMillis?.let {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = dateFormat.format(it)
