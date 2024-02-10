@@ -38,7 +38,9 @@ fun InsertNoOfQuestions(
     var noOfCodechef by remember { mutableStateOf("") }
     var isSubmitEnabled by remember { mutableStateOf(false) }
 
-    isSubmitEnabled = (noOfCodechef!="") && (noOfLeetcode!="") && (noOfCodechef!="")
+    isSubmitEnabled = ((noOfCodechef!="") && (noOfLeetcode!="") && (noOfCodechef!=""))
+            &&
+            (noOfCodechef!="0" && noOfLeetcode!="0" && noOfCodeforces!="0")
 
     Column(
         modifier = modifier.fillMaxSize(),

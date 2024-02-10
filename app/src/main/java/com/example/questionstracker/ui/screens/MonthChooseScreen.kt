@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
@@ -53,6 +54,7 @@ fun DateChooseScreen(
     onShowButtonClicked: (String) -> Unit,
     onInsertButtonClicked: (String) -> Unit,
     onDismiss: (Boolean) -> Unit,
+    onClick: () -> Unit,
 ) {
     var selectedValue by rememberSaveable {
         mutableStateOf(0)
@@ -147,6 +149,7 @@ fun DateChooseScreen(
             .weight(3f)
             .padding(16.dp),
             elevation = CardDefaults.cardElevation(8.dp),
+            onClick = onClick
         ) {
             Column(
                 modifier = Modifier.fillMaxSize().padding(8.dp),
@@ -156,6 +159,14 @@ fun DateChooseScreen(
                 PieChart(
                     data = totalQuestionsMap
                 )
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Show more",
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
+
             }
         }
 
