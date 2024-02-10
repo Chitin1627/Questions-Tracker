@@ -10,5 +10,8 @@ data class QuestionTrackerUiState(
     val totalQuestionsMap: Map<String, Int> = emptyMap<String, Int>(),
     val isInsertingData: Boolean = false,
     val noOfQuestionsLast30Days: Int = 0,
+    val totalActiveDays: Int = 0,
+    val highestStreak: Int = 0,
+    val streak: Int = 0,
     val questionsSolved: QuestionsSolved = QuestionsSolved()
 )

@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.questionstracker.database.QuestionsSolvedDatabase
+import com.example.questionstracker.ui.screens.StatsCard
+import com.example.questionstracker.ui.screens.StatsScreen
 import com.example.questionstracker.ui.theme.QuestionsTrackerTheme
 
 class MainActivity : ComponentActivity() {
@@ -47,6 +49,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     QuestionsTrackerApp(viewModel = viewModel)
+
                 }
             }
         }

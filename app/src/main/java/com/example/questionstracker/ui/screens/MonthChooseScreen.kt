@@ -1,6 +1,7 @@
 package com.example.questionstracker.ui.screens
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,10 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,6 +54,7 @@ fun DateChooseScreen(
     onShowButtonClicked: (String) -> Unit,
     onInsertButtonClicked: (String) -> Unit,
     onDismiss: (Boolean) -> Unit,
+    onClick: () -> Unit,
 ) {
     var selectedValue by rememberSaveable {
         mutableStateOf(0)
@@ -71,6 +76,7 @@ fun DateChooseScreen(
                     selectedValue = 1
                     onDismiss(true)
                     },
+                    elevation = CardDefaults.cardElevation(8.dp),
                     modifier = Modifier
                         .fillMaxHeight()
                         .weight(1f)
@@ -98,6 +104,7 @@ fun DateChooseScreen(
                         selectedValue = 2
                         onDismiss(true)
                     },
+                    elevation = CardDefaults.cardElevation(8.dp),
                     modifier = Modifier
                         .fillMaxHeight()
                         .weight(1f)
@@ -140,26 +147,26 @@ fun DateChooseScreen(
         Card(modifier = Modifier
             .fillMaxSize()
             .weight(3f)
-            .padding(16.dp)
+            .padding(16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
+            onClick = onClick
         ) {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(8.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-//                Text(
-//                    text = noOfQuestionsLast30Days.toString(),
-//                    fontWeight = FontWeight.Bold,
-//                    style = MaterialTheme.typography.displayLarge
-//                )
-//                Spacer(modifier = Modifier.padding(8.dp))
-//                Text(
-//                    text = stringResource(R.string.questions_in_last_30_days),
-//                    style = MaterialTheme.typography.bodyLarge
-//                    )
                 PieChart(
                     data = totalQuestionsMap
                 )
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Show more",
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
+
             }
         }
 

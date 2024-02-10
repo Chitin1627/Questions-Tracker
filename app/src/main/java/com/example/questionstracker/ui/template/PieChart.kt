@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.StrokeCap
@@ -54,9 +55,10 @@ fun PieChart(
     }
 
     val colors = listOf(
-        Color.Yellow,
-        Color.Red,
-        Color.Blue
+        Color(212,175,55),
+        Color(212,76,55),
+        Color(55,126,212)
+
     )
 
     var animationPlayed by remember { mutableStateOf(false ) }
@@ -85,7 +87,7 @@ fun PieChart(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(

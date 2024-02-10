@@ -1,6 +1,7 @@
 package com.example.questionstracker
 
 import android.annotation.SuppressLint
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -27,13 +28,15 @@ import androidx.navigation.compose.rememberNavController
 import com.example.questionstracker.ui.screens.DateChooseScreen
 import com.example.questionstracker.ui.screens.InsertNoOfQuestions
 import com.example.questionstracker.ui.screens.QuestionsSolvedCard
+import com.example.questionstracker.ui.screens.StatsScreen
 import kotlinx.coroutines.launch
 
 
 enum class AppScreen(@StringRes val title: Int) {
     DateChoose(title = R.string.question_tracker),
-    ShowNoOfQuestions(title = R.string.no_of_questions),
-    InsertNoOfQuestions(title = R.string.questions)
+    ShowNoOfQuestions(title = R.string.show),
+    InsertNoOfQuestions(title = R.string.questions),
+    Stats(title = R.string.stats)
 }
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
@@ -74,7 +77,11 @@ fun QuestionsTrackerApp(
                         viewModel.setDate(it)
                         navController.navigate(AppScreen.InsertNoOfQuestions.name)
                     },
-                    onDismiss = {viewModel.setShowDatePicker(it)}
+                    onDismiss = {viewModel.setShowDatePicker(it)},
+                    onClick = {
+                        viewModel.fetchStats()
+                        navController.navigate(AppScreen.Stats.name)
+                    }
                 )
             }
             composable(route = AppScreen.ShowNoOfQuestions.name) {
@@ -101,6 +108,31 @@ fun QuestionsTrackerApp(
                         navController.navigateUp()
                     }
                 }
+            }
+            composable(route = AppScreen.Stats.name) {
+                val titleList = listOf<String>(
+                    "Total Active Days",
+                    "Current Streak",
+                    "Highest Streak",
+                    "Last 30 Days"
+                )
+                val numberList = listOf<Int>(
+                    uiState.totalActiveDays,
+                    uiState.streak,
+                    uiState.highestStreak,
+                    uiState.noOfQuestionsLast30Days
+                )
+                val imageList = listOf<Int>(
+                    R.drawable.active_icon,
+                    R.drawable.streak_icon,
+                    R.drawable.higheststreak_icon,
+                    R.drawable.last_30_days_icon
+                )
+                StatsScreen(
+                    titleList = titleList,
+                    dataList = numberList,
+                    imageList = imageList
+                )
             }
         }
     }
