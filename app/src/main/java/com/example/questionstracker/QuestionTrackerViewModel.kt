@@ -108,13 +108,26 @@ class QuestionTrackerViewModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun fetchStats() {
-        val noOfQuestionsLast30Days = dao.getQuestionsSolvedLast30Days()
-        val totalActiveDays = dao.getTotalActiveDays()
-        val highestStreak = dao.getHighestStreak().max()
+        var noOfQuestionsLast30Days = dao.getQuestionsSolvedLast30Days()
+        if(noOfQuestionsLast30Days==null) {
+            noOfQuestionsLast30Days = 0
+        }
+        var totalActiveDays = dao.getTotalActiveDays()
+        if(totalActiveDays==null) {
+            totalActiveDays = 0
+        }
+        var streakData = dao.getHighestStreak()
+        var highestStreak = 0
+        if(streakData.size>1) {
+            highestStreak = streakData.max()
+        }
         val data = dao.retrieveAllData()
         val dates = data.map {it.date}
         val streak = getCurrentStreak(dates)
 
+        if(streak>highestStreak) {
+            highestStreak = streak
+        }
         _uiState.update { currentState ->
             currentState.copy (
                 noOfQuestionsLast30Days = noOfQuestionsLast30Days,
@@ -133,21 +146,27 @@ class QuestionTrackerViewModel(
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     fun getCurrentStreak(dates: List<String>) : Int {
-        val formatter = SimpleDateFormat("yyyy-MM-dd")
-        val dateObjects = dates.map {formatter.parse(it) }
-        var currentStreak = 1
-        for(i in 1 until dateObjects.size) {
-            val previousDate = dateObjects[i]
-            val currentDate = dateObjects[i-1]
-            if (currentDate != null) {
-                if(previousDate?.let { currentDate.isNextDay(it) } == true)  {
-                    currentStreak++
-                }
-                else {
-                    break
+        var currentStreak = 0
+        if(dates.size>=1) {
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val dateObjects = dates.map {formatter.parse(it) }
+            if(isToday(dates[0]) || isYesterday(dates[0])) {
+                currentStreak = 1
+            }
+            for(i in 1 until dateObjects.size) {
+                val previousDate = dateObjects[i]
+                val currentDate = dateObjects[i-1]
+                if (currentDate != null) {
+                    if(previousDate?.let { currentDate.isNextDay(it) } == true)  {
+                        currentStreak++
+                    }
+                    else {
+                        break
+                    }
                 }
             }
         }
+
         return currentStreak
     }
 
@@ -160,6 +179,21 @@ class QuestionTrackerViewModel(
         Log.d("HELLO", currDate.toString())
         Log.d("HELLO2", prevDate.toString())
         return currDate==prevDate
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun isToday(dateString: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd") // Adjust format if needed
+        val parsedDate = LocalDate.parse(dateString, formatter)
+        val today = LocalDate.now()
+        return parsedDate == today
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun isYesterday(dateString: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd") // Adjust format if needed
+        val parsedDate = LocalDate.parse(dateString, formatter)
+        val yesterday = LocalDate.now().minusDays(1)
+        return parsedDate == yesterday
     }
 }
 
