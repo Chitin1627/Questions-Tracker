@@ -1,6 +1,7 @@
 package com.example.questionstracker.ui.screens
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,8 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,6 +74,7 @@ fun DateChooseScreen(
                     selectedValue = 1
                     onDismiss(true)
                     },
+                    elevation = CardDefaults.cardElevation(8.dp),
                     modifier = Modifier
                         .fillMaxHeight()
                         .weight(1f)
@@ -98,6 +102,7 @@ fun DateChooseScreen(
                         selectedValue = 2
                         onDismiss(true)
                     },
+                    elevation = CardDefaults.cardElevation(8.dp),
                     modifier = Modifier
                         .fillMaxHeight()
                         .weight(1f)
@@ -140,7 +145,8 @@ fun DateChooseScreen(
         Card(modifier = Modifier
             .fillMaxSize()
             .weight(3f)
-            .padding(16.dp)
+            .padding(16.dp),
+            elevation = CardDefaults.cardElevation(8.dp),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize().padding(8.dp),
