@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.questionstracker.R
 
@@ -87,7 +88,9 @@ fun PieChart(
     }
 
     Column(
-        modifier = modifier.fillMaxWidth().padding(8.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -98,6 +101,7 @@ fun PieChart(
                 modifier = Modifier
                     .size(radiusOuter * 2f)
                     .rotate(animateRotation)
+                    .padding(8.dp)
             ) {
                 floatValue.forEachIndexed { index, value ->
                     drawArc(
@@ -117,7 +121,6 @@ fun PieChart(
         ) {
             DetailsPieChart(data = data, colors = colors)
         }
-
     }
 }
 
