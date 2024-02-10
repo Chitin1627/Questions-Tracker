@@ -40,7 +40,7 @@ fun InsertNoOfQuestions(
 
     isSubmitEnabled = ((noOfCodechef!="") && (noOfLeetcode!="") && (noOfCodechef!=""))
             &&
-            (noOfCodechef!="0" && noOfLeetcode!="0" && noOfCodeforces!="0")
+            (noOfCodechef!="0" || noOfLeetcode!="0" || noOfCodeforces!="0")
 
     Column(
         modifier = modifier.fillMaxSize(),

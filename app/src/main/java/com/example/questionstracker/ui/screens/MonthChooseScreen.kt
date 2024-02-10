@@ -61,38 +61,42 @@ fun DateChooseScreen(
         mutableStateOf(0)
     }
     Column(modifier = Modifier.fillMaxSize()) {
-        Card(modifier = Modifier
+        Box(modifier = Modifier
             .fillMaxSize()
             .weight(3f)
-            .padding(16.dp),
-            elevation = CardDefaults.cardElevation(8.dp),
-            onClick = onClick
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize().padding(8.dp).weight(1f),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+            Card(modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                elevation = CardDefaults.cardElevation(8.dp),
+                onClick = onClick
             ) {
-                PieChart(
-                    data = totalQuestionsMap
-                )
-
                 Row(
-                    modifier = Modifier.fillMaxHeight().weight(1f),
-                    verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.Center
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "Show more",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.fillMaxSize(),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.ExtraBold
+                    PieChart(
+                        data = totalQuestionsMap
                     )
                 }
-
+            }
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                Text(
+                    text = "Show more",
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    fontWeight = FontWeight.ExtraBold
+                )
             }
         }
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -101,8 +105,7 @@ fun DateChooseScreen(
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 8.dp),
+                    .fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Card(
