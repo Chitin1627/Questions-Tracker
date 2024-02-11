@@ -140,14 +140,27 @@ class QuestionTrackerViewModel(
 
 
     suspend fun upsertQuestionsSolved(data: QuestionsSolved) {
-        dao.upsertQuestionsSolved(data)
+        val existingRow = dao.getQuestionsSolvedByDate(data.date)
+        if(existingRow==null) {
+            dao.upsertQuestionsSolved(data)
+        }
+        else {
+            Log.d("HELLO", existingRow.noOfLeetcode.toString())
+            val newObj = QuestionsSolved(
+                date = data.date,
+                noOfCodechef = data.noOfCodechef+existingRow.noOfCodechef,
+                noOfCodeforces = data.noOfCodeforces+existingRow.noOfCodeforces,
+                noOfLeetcode = data.noOfLeetcode+existingRow.noOfLeetcode
+            )
+            dao.upsertQuestionsSolved(newObj)
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     fun getCurrentStreak(dates: List<String>) : Int {
         var currentStreak = 0
-        if(dates.size>=1) {
+        if(dates.isNotEmpty()) {
             val formatter = SimpleDateFormat("yyyy-MM-dd")
             val dateObjects = dates.map {formatter.parse(it) }
             if(isToday(dates[0]) || isYesterday(dates[0])) {

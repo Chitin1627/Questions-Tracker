@@ -1,7 +1,10 @@
 package com.example.questionstracker
 
 import android.annotation.SuppressLint
+import android.os.Build
+import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -38,6 +41,7 @@ enum class AppScreen(@StringRes val title: Int) {
     InsertNoOfQuestions(title = R.string.questions),
     Stats(title = R.string.stats)
 }
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun QuestionsTrackerApp(
@@ -75,6 +79,7 @@ fun QuestionsTrackerApp(
                     },
                     onInsertButtonClicked = {
                         viewModel.setDate(it)
+                        viewModel.getQuestionsSolved(it)
                         navController.navigate(AppScreen.InsertNoOfQuestions.name)
                     },
                     onDismiss = {viewModel.setShowDatePicker(it)},
@@ -92,6 +97,7 @@ fun QuestionsTrackerApp(
                 val coroutineScope = rememberCoroutineScope()
                 InsertNoOfQuestions(
                     date = uiState.date,
+                    existingData = uiState.questionsSolved,
                     onClick = {noOfLeetcode, noOfCodeforces, noOfCodechef ->
                         viewModel.setQuestionsSolved(date = uiState.date,
                             noOfLeetcode = noOfLeetcode,
@@ -102,6 +108,7 @@ fun QuestionsTrackerApp(
                     }
                 )
                 if(uiState.isInsertingData) {
+                    Log.d("HELLO2", uiState.questionsSolved.noOfLeetcode.toString())
                     coroutineScope.launch {
                         viewModel.upsertQuestionsSolved(uiState.questionsSolved)
                         viewModel.setInsertingData(false)

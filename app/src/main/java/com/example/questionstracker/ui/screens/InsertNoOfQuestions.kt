@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,15 +22,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questionstracker.R
+import com.example.questionstracker.database.QuestionsSolved
 
 @Composable
 fun InsertNoOfQuestions(
     date: String,
+    existingData: QuestionsSolved,
     onClick: (Int, Int, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -38,9 +43,8 @@ fun InsertNoOfQuestions(
     var noOfCodechef by remember { mutableStateOf("") }
     var isSubmitEnabled by remember { mutableStateOf(false) }
 
-    isSubmitEnabled = ((noOfCodechef!="") && (noOfLeetcode!="") && (noOfCodechef!=""))
-            &&
-            (noOfCodechef!="0" || noOfLeetcode!="0" || noOfCodeforces!="0")
+    isSubmitEnabled = ((noOfCodechef != "") || (noOfLeetcode != "") || (noOfCodechef != "")) &&
+            ((noOfCodechef != "0") || (noOfLeetcode != "0") || (noOfCodeforces != "0"))
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -49,7 +53,7 @@ fun InsertNoOfQuestions(
     ) {
         val newDate = "${date.subSequence(8, 10)}-${date.subSequence(5,7)}-${date.subSequence(0,4)}"
         OutlinedTextField(
-            value = newDate,
+            value = newDate + ": Existing Data",
             onValueChange = {},
             readOnly = true,
             enabled = false,
@@ -60,7 +64,7 @@ fun InsertNoOfQuestions(
         Spacer(modifier = Modifier.padding(8.dp))
         OutlinedTextField(
             value = noOfLeetcode,
-            label = { Text(text = stringResource(R.string.leetcode)) },
+            label = { Text(text = stringResource(R.string.leetcode) + ": ${existingData.noOfLeetcode}") },
             onValueChange = {
                 noOfLeetcode = it
             },
@@ -80,7 +84,7 @@ fun InsertNoOfQuestions(
 
         OutlinedTextField(
             value = noOfCodeforces,
-            label = { Text(text = stringResource(R.string.codeforces)) },
+            label = { Text(text = stringResource(R.string.codeforces) + ": ${existingData.noOfCodeforces}") },
             onValueChange = {
                 noOfCodeforces = it
             },
@@ -100,7 +104,7 @@ fun InsertNoOfQuestions(
 
         OutlinedTextField(
             value = noOfCodechef,
-            label = { Text(text = stringResource(R.string.codechef)) },
+            label = { Text(text = stringResource(R.string.codechef) + ": ${existingData.noOfCodechef}") },
             onValueChange = {
                 noOfCodechef = it
             },
@@ -117,9 +121,27 @@ fun InsertNoOfQuestions(
                 .align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.padding(8.dp))
+        
+        Text(
+            text = "Note: The data will be added to the existing data",
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.padding(8.dp))
 
         Button(
             onClick = {
+                if(noOfLeetcode=="") {
+                    noOfLeetcode = "0"
+                }
+                if(noOfCodechef=="") {
+                    noOfCodechef = "0"
+                }
+                if(noOfCodeforces=="") {
+                    noOfCodeforces = "0"
+                }
                 onClick(noOfLeetcode.toInt(), noOfCodeforces.toInt(), noOfCodechef.toInt())
             },
             enabled = isSubmitEnabled
