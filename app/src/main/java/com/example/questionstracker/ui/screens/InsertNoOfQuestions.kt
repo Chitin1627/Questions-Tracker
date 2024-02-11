@@ -43,7 +43,7 @@ fun InsertNoOfQuestions(
     var noOfCodechef by remember { mutableStateOf("") }
     var isSubmitEnabled by remember { mutableStateOf(false) }
 
-    isSubmitEnabled = ((noOfCodechef != "") || (noOfLeetcode != "") || (noOfCodechef != "")) &&
+    isSubmitEnabled = ((noOfCodechef != "") || (noOfLeetcode != "") || (noOfCodeforces != "")) &&
             ((noOfCodechef != "0") || (noOfLeetcode != "0") || (noOfCodeforces != "0"))
 
     if(noOfCodeforces!="") {
