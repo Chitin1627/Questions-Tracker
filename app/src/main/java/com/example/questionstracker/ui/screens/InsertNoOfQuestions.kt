@@ -46,6 +46,28 @@ fun InsertNoOfQuestions(
     isSubmitEnabled = ((noOfCodechef != "") || (noOfLeetcode != "") || (noOfCodechef != "")) &&
             ((noOfCodechef != "0") || (noOfLeetcode != "0") || (noOfCodeforces != "0"))
 
+    if(noOfCodeforces!="") {
+        for(i in 0 until noOfCodeforces.length) {
+            if(!noOfCodeforces[i].isDigit()) {
+                isSubmitEnabled = false
+            }
+        }
+    }
+    if(noOfCodechef!="") {
+        for(i in 0 until noOfCodechef.length) {
+            if(!noOfCodechef[i].isDigit()) {
+                isSubmitEnabled = false
+            }
+        }
+    }
+    if(noOfLeetcode!="") {
+        for(i in 0 until noOfLeetcode.length) {
+            if(!noOfLeetcode[i].isDigit()) {
+                isSubmitEnabled = false
+            }
+        }
+    }
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
