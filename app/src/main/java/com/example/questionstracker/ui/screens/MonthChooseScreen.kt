@@ -194,7 +194,7 @@ fun MyDatePickerDialog(
 ) {
     val datePickerState = rememberDatePickerState(selectableDates = object : SelectableDates {
         override fun isSelectableDate(utcTimeMillis: Long) : Boolean {
-            return utcTimeMillis+19800000 <= System.currentTimeMillis()
+            return utcTimeMillis-19800000 <= System.currentTimeMillis()
         }
     })
     val selectedDate = datePickerState.selectedDateMillis?.let {

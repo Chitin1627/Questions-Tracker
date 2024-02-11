@@ -155,9 +155,6 @@ fun QuestionsTrackerAppBar(
 ) {
     TopAppBar(
         title = { Text(text = stringResource(id = currentScreen.title)) },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
         modifier = modifier,
         navigationIcon = {
             if(canNavigateBack) {
