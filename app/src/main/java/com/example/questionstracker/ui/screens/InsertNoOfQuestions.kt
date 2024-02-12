@@ -2,6 +2,7 @@ package com.example.questionstracker.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ fun InsertNoOfQuestions(
     date: String,
     existingData: QuestionsSolved,
     onClick: (Int, Int, Int) -> Unit,
+    onCancelButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var noOfLeetcode by remember { mutableStateOf("") }
@@ -153,23 +155,35 @@ fun InsertNoOfQuestions(
 
         Spacer(modifier = Modifier.padding(8.dp))
 
-        Button(
-            onClick = {
-                if(noOfLeetcode=="") {
-                    noOfLeetcode = "0"
-                }
-                if(noOfCodechef=="") {
-                    noOfCodechef = "0"
-                }
-                if(noOfCodeforces=="") {
-                    noOfCodeforces = "0"
-                }
-                onClick(noOfLeetcode.toInt(), noOfCodeforces.toInt(), noOfCodechef.toInt())
-            },
-            enabled = isSubmitEnabled
-        )
-        {
-            Text(text = stringResource(R.string.done))
+        Row(
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(
+                onClick = {
+                    if(noOfLeetcode=="") {
+                        noOfLeetcode = "0"
+                    }
+                    if(noOfCodechef=="") {
+                        noOfCodechef = "0"
+                    }
+                    if(noOfCodeforces=="") {
+                        noOfCodeforces = "0"
+                    }
+                    onClick(noOfLeetcode.toInt(), noOfCodeforces.toInt(), noOfCodechef.toInt())
+                },
+                enabled = isSubmitEnabled,
+                modifier = Modifier.padding(4.dp)
+            )
+            {
+                Text(text = stringResource(R.string.done))
+            }
+
+            Button(
+                onClick = onCancelButtonClicked,
+                modifier = Modifier.padding(4.dp)
+            ) {
+                Text(text = stringResource(id = R.string.cancel))
+            }
         }
     }
 }

@@ -105,7 +105,8 @@ fun QuestionsTrackerApp(
                             noOfCodechef = noOfCodechef
                         )
                         viewModel.setInsertingData(true)
-                    }
+                    },
+                    onCancelButtonClicked = {navController.navigateUp()}
                 )
                 if(uiState.isInsertingData) {
                     Log.d("HELLO2", uiState.questionsSolved.noOfLeetcode.toString())
