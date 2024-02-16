@@ -118,7 +118,7 @@ class QuestionTrackerViewModel(
         }
         var streakData = dao.getHighestStreak()
         var highestStreak = 0
-        if(streakData.size>1) {
+        if(streakData.size>=1) {
             highestStreak = streakData.max()
         }
         val data = dao.retrieveAllData()
@@ -165,6 +165,9 @@ class QuestionTrackerViewModel(
             val dateObjects = dates.map {formatter.parse(it) }
             if(isToday(dates[0]) || isYesterday(dates[0])) {
                 currentStreak = 1
+            }
+            else {
+                return 0;
             }
             for(i in 1 until dateObjects.size) {
                 val previousDate = dateObjects[i]

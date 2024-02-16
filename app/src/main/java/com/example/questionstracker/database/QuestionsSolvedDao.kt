@@ -32,7 +32,7 @@ interface QuestionsSolvedDao {
     @Query("SELECT COUNT(*) FROM QuestionsSolved")
     fun getTotalActiveDays(): Int
 
-    @Query("SELECT COUNT(*) as dt FROM (SELECT t1.date, date(t1.date, - (SELECT COUNT(*) FROM QuestionsSolved t2 WHERE t2.date<=t1.date)|| ' day') as grp from QuestionsSolved t1) QuestionsSolved GROUP BY grp ORDER BY date DESC")
+    @Query("SELECT COUNT(*) as dt FROM (SELECT t1.date, date(t1.date, - (SELECT COUNT(*) FROM QuestionsSolved t2 WHERE t2.date<=t1.date)|| ' day') as grp from QuestionsSolved t1) QuestionsSolved GROUP BY grp")
     fun getHighestStreak(): List<Int>
 
     @Query("SELECT * FROM QuestionsSolved ORDER BY date DESC")
