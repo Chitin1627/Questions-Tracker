@@ -20,4 +20,6 @@
     <string name="questions">Questions</string>
     <string name="stats">Stats</string>
     <string name="others">Others</string>
+    <string name="insertremove">Insert/Remove</string>
+    <string name="modify">Modify</string>
 </resources>
