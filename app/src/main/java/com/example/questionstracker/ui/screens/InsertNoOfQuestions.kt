@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -36,17 +37,18 @@ import com.example.questionstracker.database.QuestionsSolved
 fun InsertNoOfQuestions(
     date: String,
     existingData: QuestionsSolved,
-    onClick: (Int, Int, Int) -> Unit,
+    onClick: (Int, Int, Int, Int) -> Unit,
     onCancelButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var noOfLeetcode by remember { mutableStateOf("") }
     var noOfCodeforces by remember { mutableStateOf("") }
     var noOfCodechef by remember { mutableStateOf("") }
+    var noOfOthers by remember { mutableStateOf("") }
     var isSubmitEnabled by remember { mutableStateOf(false) }
 
-    isSubmitEnabled = ((noOfCodechef != "") || (noOfLeetcode != "") || (noOfCodeforces != "")) &&
-            ((noOfCodechef != "0") || (noOfLeetcode != "0") || (noOfCodeforces != "0"))
+    isSubmitEnabled = ((noOfCodechef != "") || (noOfLeetcode != "") || (noOfCodeforces != "") || (noOfOthers != "" )) &&
+            ((noOfCodechef != "0") || (noOfLeetcode != "0") || (noOfCodeforces != "0" || (noOfOthers != "0")))
 
     if(noOfCodeforces!="") {
         for(i in 0 until noOfCodeforces.length) {
@@ -69,6 +71,16 @@ fun InsertNoOfQuestions(
             }
         }
     }
+
+    if(noOfOthers!="") {
+        for(i in 0 until noOfOthers.length) {
+            if(!noOfOthers[i].isDigit()) {
+                isSubmitEnabled = false
+            }
+        }
+    }
+
+
 
     Column(
         modifier = modifier.fillMaxSize(),
@@ -145,6 +157,27 @@ fun InsertNoOfQuestions(
                 .align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.padding(8.dp))
+
+        OutlinedTextField(
+            value = noOfOthers,
+            label = { Text(text = stringResource(R.string.others) + ": ${existingData.others}") },
+            onValueChange = {
+                noOfOthers = it
+            },
+            shape = RoundedCornerShape(16.dp),
+            leadingIcon = {
+                Icon(painter = painterResource(id = R.drawable.other_icon),
+                    contentDescription = stringResource(id = R.string.no_of_other_questions),
+                    modifier = Modifier.size(24.dp)
+                )
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
         
         Text(
             text = "Note: The data will be added to the existing data",
@@ -169,7 +202,10 @@ fun InsertNoOfQuestions(
                     if(noOfCodeforces=="") {
                         noOfCodeforces = "0"
                     }
-                    onClick(noOfLeetcode.toInt(), noOfCodeforces.toInt(), noOfCodechef.toInt())
+                    if(noOfOthers=="") {
+                        noOfOthers = "0"
+                    }
+                    onClick(noOfLeetcode.toInt(), noOfCodeforces.toInt(), noOfCodechef.toInt(), noOfOthers.toInt())
                 },
                 enabled = isSubmitEnabled,
                 modifier = Modifier.padding(4.dp)

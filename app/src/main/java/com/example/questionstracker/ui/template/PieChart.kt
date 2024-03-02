@@ -26,7 +26,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -58,7 +60,8 @@ fun PieChart(
     val colors = listOf(
         Color(212,175,55),
         Color(212,76,55),
-        Color(55,126,212)
+        Color(55,126,212),
+        Color(91,137,48)
 
     )
 
@@ -115,7 +118,7 @@ fun PieChart(
                 }
             }
         }
-        Row(modifier = Modifier.fillMaxWidth(),
+        Row(modifier = Modifier.fillMaxWidth().padding(15.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -130,6 +133,7 @@ fun DetailsPieChart(
     colors: List<Color>
 ) {
     Column(modifier = Modifier
+        .verticalScroll(rememberScrollState())
         .padding(30.dp)
         .fillMaxWidth()
     ) {

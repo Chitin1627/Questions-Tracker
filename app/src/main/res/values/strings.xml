@@ -13,9 +13,11 @@
     <string name="no_of_leetcode_questions">No of Leetcode Questions</string>
     <string name="no_of_codeforces_questions">No of Codeforces Questions</string>
     <string name="no_of_codechef_questions">No of Codechef Questions</string>
+    <string name="no_of_other_questions">No of Other Questions</string>
     <string name="codechef">Codechef</string>
     <string name="codeforces">Codeforces</string>
     <string name="leetcode">Leetcode</string>
     <string name="questions">Questions</string>
     <string name="stats">Stats</string>
+    <string name="others">Others</string>
 </resources>

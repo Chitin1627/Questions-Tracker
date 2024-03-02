@@ -98,11 +98,12 @@ fun QuestionsTrackerApp(
                 InsertNoOfQuestions(
                     date = uiState.date,
                     existingData = uiState.questionsSolved,
-                    onClick = {noOfLeetcode, noOfCodeforces, noOfCodechef ->
+                    onClick = {noOfLeetcode, noOfCodeforces, noOfCodechef, noOfOthers ->
                         viewModel.setQuestionsSolved(date = uiState.date,
                             noOfLeetcode = noOfLeetcode,
                             noOfCodeforces = noOfCodeforces,
-                            noOfCodechef = noOfCodechef
+                            noOfCodechef = noOfCodechef,
+                            noOfOthers = noOfOthers
                         )
                         viewModel.setInsertingData(true)
                     },

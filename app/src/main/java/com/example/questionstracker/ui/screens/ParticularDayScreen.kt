@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
@@ -45,6 +48,7 @@ fun QuestionsSolvedCard(
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(8.dp)
+        .verticalScroll(rememberScrollState())
     ){
         val date = questionObj.date
         val newDate = "${date.subSequence(8, 10)}-${date.subSequence(5,7)}-${date.subSequence(0,4)}"
@@ -71,6 +75,14 @@ fun QuestionsSolvedCard(
             text = "Codechef",
             noOfQuestions = questionObj.noOfCodechef,
             image = R.drawable.codechef_logo
+        )
+
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        NoOfQuestionsCard(
+            text = "Other",
+            noOfQuestions = questionObj.others,
+            image = R.drawable.other_logo
         )
     }
 
