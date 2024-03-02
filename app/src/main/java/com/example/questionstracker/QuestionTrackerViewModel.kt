@@ -126,7 +126,15 @@ class QuestionTrackerViewModel(
             highestStreak = streakData.max()
         }
         val data = dao.retrieveAllData()
-        val dates = data.map {it.date}
+        var dates = data.map {
+            if(it.noOfCodechef>0 || it.noOfCodeforces>0 || it.noOfLeetcode>0 || it.others>0) {
+                it.date
+            }
+            else {
+                "1900-01-01"
+            }
+        }
+        dates = dates.sorted().reversed()
         val streak = getCurrentStreak(dates)
 
         if(streak>highestStreak) {
