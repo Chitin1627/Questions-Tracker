@@ -92,7 +92,7 @@ fun DateChooseScreen(
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 8.dp),
-                    fontWeight = FontWeight.ExtraBold
+                    fontWeight = FontWeight.Light
                 )
             }
         }
@@ -129,7 +129,7 @@ fun DateChooseScreen(
                             contentDescription = stringResource(R.string.insert)
                         )
                         Text(
-                            text = stringResource(R.string.insert),
+                            text = stringResource(R.string.modify),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Bold
                         )

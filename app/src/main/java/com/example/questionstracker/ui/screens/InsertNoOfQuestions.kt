@@ -53,6 +53,10 @@ fun InsertNoOfQuestions(
     if(noOfCodeforces!="") {
         for(i in 0 until noOfCodeforces.length) {
             if(!noOfCodeforces[i].isDigit()) {
+                if(noOfCodeforces.length>1 && i==0 && noOfCodeforces[i]=='-') {
+                    isSubmitEnabled = true;
+                    continue;
+                }
                 isSubmitEnabled = false
             }
         }
@@ -60,6 +64,10 @@ fun InsertNoOfQuestions(
     if(noOfCodechef!="") {
         for(i in 0 until noOfCodechef.length) {
             if(!noOfCodechef[i].isDigit()) {
+                if(noOfCodechef.length>1 && i==0 && noOfCodechef[i]=='-') {
+                    isSubmitEnabled = true;
+                    continue;
+                }
                 isSubmitEnabled = false
             }
         }
@@ -67,6 +75,10 @@ fun InsertNoOfQuestions(
     if(noOfLeetcode!="") {
         for(i in 0 until noOfLeetcode.length) {
             if(!noOfLeetcode[i].isDigit()) {
+                if(noOfLeetcode.length>1 && i==0 && noOfLeetcode[i]=='-') {
+                    isSubmitEnabled = true;
+                    continue;
+                }
                 isSubmitEnabled = false
             }
         }
@@ -75,7 +87,46 @@ fun InsertNoOfQuestions(
     if(noOfOthers!="") {
         for(i in 0 until noOfOthers.length) {
             if(!noOfOthers[i].isDigit()) {
+                if(noOfOthers.length>1 && i==0 && noOfOthers[i]=='-') {
+                    isSubmitEnabled = true;
+                    continue;
+                }
                 isSubmitEnabled = false
+            }
+        }
+    }
+
+    if(isSubmitEnabled) {
+        if(noOfLeetcode!="") {
+            val temp = noOfLeetcode.toInt()
+            if(temp<0) {
+                if(temp+existingData.noOfLeetcode<0) {
+                    isSubmitEnabled = false
+                }
+            }
+        }
+        if(noOfCodeforces!="") {
+            val temp = noOfCodeforces.toInt()
+            if(temp<0) {
+                if(temp+existingData.noOfCodeforces<0) {
+                    isSubmitEnabled = false
+                }
+            }
+        }
+        if(noOfCodechef!="") {
+            val temp = noOfCodechef.toInt()
+            if(temp<0) {
+                if(temp+existingData.noOfCodechef<0) {
+                    isSubmitEnabled = false
+                }
+            }
+        }
+        if(noOfOthers!="") {
+            val temp = noOfOthers.toInt()
+            if(temp<0) {
+                if(temp+existingData.others<0) {
+                    isSubmitEnabled = false
+                }
             }
         }
     }
@@ -184,6 +235,16 @@ fun InsertNoOfQuestions(
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        Text(
+            text = "Negative numbers will be subtracted from the existing data",
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp)
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
