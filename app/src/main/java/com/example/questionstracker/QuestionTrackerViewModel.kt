@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.lang.Integer.max
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -120,11 +121,6 @@ class QuestionTrackerViewModel(
         if(totalActiveDays==null) {
             totalActiveDays = 0
         }
-        var streakData = dao.getHighestStreak()
-        var highestStreak = 0
-        if(streakData.size>=1) {
-            highestStreak = streakData.max()
-        }
         val data = dao.retrieveAllData()
         var dates = data.map {
             if(it.noOfCodechef>0 || it.noOfCodeforces>0 || it.noOfLeetcode>0 || it.others>0) {
@@ -134,6 +130,7 @@ class QuestionTrackerViewModel(
                 "1900-01-01"
             }
         }
+        var highestStreak = getHighestStreak(dates)
         dates = dates.sorted().reversed()
         val streak = getCurrentStreak(dates)
 
@@ -195,8 +192,31 @@ class QuestionTrackerViewModel(
                 }
             }
         }
-
         return currentStreak
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getHighestStreak(dates: List<String>) : Int {
+        var currentStreak = 0
+        var highestStreak = 0
+        if(dates.isNotEmpty()) {
+            val formatter = SimpleDateFormat("yyyy-MM-dd")
+            val dateObjects = dates.map {formatter.parse(it) }
+            for(i in 1 until dateObjects.size) {
+                val previousDate = dateObjects[i]
+                val currentDate = dateObjects[i-1]
+                if (currentDate != null) {
+                    if(previousDate?.let { currentDate.isNextDay(it) } == true)  {
+                        currentStreak++
+                    }
+                    else {
+                        highestStreak = max(currentStreak, highestStreak)
+                    }
+                }
+            }
+        }
+        return highestStreak
     }
 
     private fun Date.isNextDay(otherDate: Date): Boolean {
