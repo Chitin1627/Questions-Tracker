@@ -32,7 +32,7 @@ interface QuestionsSolvedDao {
     @Query("SELECT SUM(others) FROM QuestionsSolved")
     fun getOthersTotalQuestions(): Int
 
-    @Query("SELECT COUNT(*) FROM QuestionsSolved")
+    @Query("SELECT COUNT(*) FROM QuestionsSolved WHERE noOfLeetcode+noOfCodechef+noOfCodeforces+others>0")
     fun getTotalActiveDays(): Int
 
     @Query("SELECT COUNT(*) as dt FROM (SELECT t1.date, date(t1.date, - (SELECT COUNT(*) FROM QuestionsSolved t2 WHERE t2.date<=t1.date)|| ' day') as grp from QuestionsSolved t1) QuestionsSolved GROUP BY grp")
