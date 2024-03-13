@@ -212,6 +212,7 @@ class QuestionTrackerViewModel(
                     }
                     else {
                         highestStreak = max(currentStreak, highestStreak)
+                        currentStreak = 0
                     }
                 }
             }
