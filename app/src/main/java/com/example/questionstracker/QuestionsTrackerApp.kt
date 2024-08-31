@@ -168,5 +168,5 @@ fun QuestionsTrackerAppBar(
                 }
             }
         }
-        )
+    )
 }

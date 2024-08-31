@@ -253,6 +253,13 @@ fun InsertNoOfQuestions(
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
+                onClick = onCancelButtonClicked,
+                modifier = Modifier.padding(4.dp)
+            ) {
+                Text(text = stringResource(id = R.string.cancel))
+            }
+
+            Button(
                 onClick = {
                     if(noOfLeetcode=="") {
                         noOfLeetcode = "0"
@@ -273,13 +280,6 @@ fun InsertNoOfQuestions(
             )
             {
                 Text(text = stringResource(R.string.done))
-            }
-
-            Button(
-                onClick = onCancelButtonClicked,
-                modifier = Modifier.padding(4.dp)
-            ) {
-                Text(text = stringResource(id = R.string.cancel))
             }
         }
     }
